@@ -9,6 +9,7 @@ describe('User Onboarding App', () => {
   const nameInput = () => cy.get('input[name="name"]');
   const emailInput = () => cy.get('input[name="email"]');
   const passwordInput = () => cy.get('input[name="password"]');
+  const termsBox = () => cy.get('input[name="terms"]');
   const submitBtn = () => cy.get('#submitBtn');
 
   it("allows user to type in the name, email, and password inputs", () => {
@@ -27,6 +28,14 @@ describe('User Onboarding App', () => {
       .should('have.value', '')
       .type('teST_pa$$w0Rd123')
       .should('have.value', 'teST_pa$$w0Rd123');
+  });
+
+  it("allows user to check off the terms of service checkbox", () => {
+    // verify that terms of service is not selected, then selects it, then verifies that it is selected
+    termsBox()
+      .should('not.be.checked')
+      .click()
+      .should('be.checked');
   });
 });
 
