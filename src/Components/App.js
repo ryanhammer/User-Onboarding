@@ -46,19 +46,19 @@ const initialDisabled = true;
 const schema = yup.object().shape({
   name: yup
     .string()
-    .required('Name is required')
+    .required('Name must be filled in')
     .min(6, 'Name must be at least 6 characters'),
   email: yup
     .string()
     .email('You must enter a valid email')
-    .required('Email is required'),
+    .required('Email must be entered'),
   password: yup
     .string()
     .required('You must enter a password')
     .min(7, 'Your password must be at least 7 characters'),
   role: yup
     .string()
-    .oneOf(['Student', 'Caretaker', 'Ghost', 'Gamekeeper', 'Kitchen Staff', 'Nurse', 'Professor', 'Headmaster'], 'Role selection is required'),
+    .oneOf(['Student', 'Caretaker', 'Ghost', 'Gamekeeper', 'Kitchen Staff', 'Nurse', 'Professor', 'Headmaster'], 'A role must be selected'),
   house: yup
     .string()
     .oneOf(['Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin'], 'You must select a house'),

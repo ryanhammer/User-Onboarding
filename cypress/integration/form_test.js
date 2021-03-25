@@ -13,6 +13,7 @@ describe('User Onboarding App', () => {
   const houseInput = () => cy.get('input[name="house"]');
   const submitBtn = () => cy.get('#submitBtn');
   const termsBox = () => cy.get('input[name="terms"]');
+  const errorDiv = () => cy.get('.errors');
 
   it("allows user to type in the name, email, and password inputs", () => {
     // grab the inputs, assert they are empty, type in them, and assert that what we typed is there
@@ -70,58 +71,27 @@ describe('User Onboarding App', () => {
     termsBox().should('not.be.checked');
     submitBtn().should('be.disabled');
 
-  })
+  });
+
+  it("checks for form validation when an input is clear", () => {
+    // start with empty form, disabled submit button and no errors
+    nameInput().should('have.value', '');
+    emailInput().should('have.value', '');
+    passwordInput().should('have.value', '');
+    roleSelect().should('have.value', '');
+    houseInput().should('not.be.checked');
+    termsBox().should('not.be.checked');
+    errorDiv().contains(/must/i).should('not.exist'); // all errors feature 'must'
+    submitBtn().should('be.disabled');
+
+    // enter text into password input then clear to trigger validation
+    passwordInput()
+      .type('password')
+      .clear();
+    
+    // check for error code
+    errorDiv().contains(/must/i);
+
+    // Okay so like, the instructions say to check for 'an input' so I'm just going to do the one. But, I could check each individual input similarly where I'd clear the previous error by correctly completing that input then tirgger the next input error to be tested.
+  });
 });
-
-// it('submit button is disabled until both inputs are filled out', () => {
-//   // set up --> act --> assert
-//   textInput()
-//     .should('have.value', '');
-
-//   authorInput()
-//     .should('have.value', '');
-
-//   submitBtn()
-//     .should('be.disabled');
-
-//   textInput()
-//     .type('have fun learning React')
-//     .should('have.value', 'have fun learning React');
-
-//   authorInput()
-//     .type('author name')
-//     .should('have.value', 'author name');
-
-//   submitBtn()
-//     .should('not.be.disabled');
-
-// });
-
-// it('can cancel a new quote', () => {
-//   // set up
-//   textInput().should('have.value', '');
-//   authorInput().should('have.value', '');
-
-//   // act
-//   textInput()
-//     .type('have fun learning React')
-//     .should('have.value', 'have fun learning React');
-
-//   authorInput()
-//     .type('author name')
-//     .should('have.value', 'author name');
-
-//   cancelBtn().click();
-
-//   // assert
-//   textInput().should('have.value', '');
-//   authorInput().should('have.value', '');
-
-// });
-
-// it('can submit a new quote', () => {
-//   // setup: that a quote is not currently in the DOM
-//   cy.get('.container');
-//   cy.contains(/have fun (Rhiannon)/i)
-// })
-// });
