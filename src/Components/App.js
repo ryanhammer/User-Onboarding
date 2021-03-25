@@ -104,34 +104,30 @@ export default function App() {
         .finally(setFormValues(initialFormValues))
   }
 
-    //////////////// EVENT HANDLERS ////////////////
+  // Event handler functions
   const inputChange = (name, value) => {
-    // 🔥 STEP 10- RUN VALIDATION WITH YUP
-    // yup.reach will allow us to "reach" into the schema and test only one part.
-    // We give reach the schema as the first argument, and the key we want to test as the second.
+    // Using yup.reach to use the defined schema to test individual parts of the form for validation
+    // It takes the schema as the first argument, and the key to be tested as the second argument
     yup
-      .reach(schema, name) // get to this part of the schema
-      //we can then run validate using the value
-      .validate(value) // validate this value
+      .reach(schema, name) 
+      .validate(value)
+      // Clears error if validation is successful
       .then(() => {
-        // happy path and clear the error
         setFormErrors({
           ...formErrors,
           [name]: '',
         });
       })
-      // if the validation is unsuccessful, we can set the error message to the message
-      // returned from yup (that we created in our schema)
       .catch((err) => {
         setFormErrors({
           ...formErrors,
-          // validation error from schema
+          // Validation error from schema if unsuccessful
           [name]: err.errors[0],
         });
       })
     setFormValues({
       ...formValues,
-      [name]: value // NOT AN ARRAY
+      [name]: value
     });
   }
 
