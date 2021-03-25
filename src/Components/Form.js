@@ -201,6 +201,7 @@ export default function UserOnboardForm(props) {
           />
         </label>
       </div>
+      {/* Mandatory checkbox for terms of service */}
       <div className='form-group checkboxes'>
         <h4>User Terms of Service</h4>
         <label>Accept Terms?
