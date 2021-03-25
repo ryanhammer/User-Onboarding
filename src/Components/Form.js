@@ -20,7 +20,7 @@ export default function UserOnboardForm(props) {
         <h2>Add a User</h2>
 
         {/* Submit button defaults to disabled */}
-        <button disabled={disabled}>Submit</button>
+        <button disabled={disabled} id='submitBtn' >Submit</button>
 
         <div className='errors'>
           {/* This section is for rendering any form validation errors that are triggered */}
